@@ -49,6 +49,28 @@ const SignUp = () => {
         </TouchableOpacity>
     )
 
+    // renderLogo
+    const renderLogo = () => (
+        <View
+            style={{
+                marginTop: SIZES.padding * 5,
+                height: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <Image
+            source={images.wallieLogo}
+            resizeMode='contain'
+            style={{
+                width: '60%'
+            }}
+        />
+        </View>
+    )
+
+
+    // SignUp Screen View
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -64,6 +86,7 @@ const SignUp = () => {
             >
                 <ScrollView>
                     {renderHeader()}
+                    {renderLogo()}
                 </ScrollView>
             </LinearGradient>
         </KeyboardAvoidingView>
