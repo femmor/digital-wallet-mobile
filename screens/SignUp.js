@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View, 
     Text,
@@ -20,8 +20,38 @@ import {icons, images, COLORS, SIZES, FONTS} from "../constants"
 
 const SignUp = () => {
 
+    // States
     const [showPassword, setShowPassword] = useState(false)
 
+    const [areas, setAreas] = useState([])
+    const [selectedArea, setSelectedArea] = useState(null)
+    const [moduleVisible, setModuleVisible] = useState(false)
+
+    useEffect(() => {
+        fetch('https://restcountries.eu/rest/v2/all')
+        .then(res => res.json())
+        .then(data => {
+            let areaData = data.map(item => {
+                return {
+                    code: item.alpha2Code,
+                    name: item.name,
+                    callingCode: `+${item.callingCodes[0]}`,
+                    flag: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`
+                }
+            })
+
+            setAreas(areaData)
+
+            if(areaData.length > 0){
+                let defaultData = areaData.filter(a => a.code === 'US')
+
+                if (defaultData.length > 0) {
+                    setSelectedArea(defaultData[0])
+                }
+            }
+        })
+
+    }, [])
 
     // renderHeader
     const renderHeader = () => (
@@ -156,7 +186,7 @@ const SignUp = () => {
                                 marginLeft: 5
                             }}
                         >
-                            <Image source={images.usFlag} style={{
+                            <Image source={{ uri: selectedArea?.flag }} style={{
                                 width: 30,
                                 height: 30,
                                 resizeMode: 'contain'
@@ -171,7 +201,7 @@ const SignUp = () => {
                             <Text style={{
                                 color: COLORS.white,
                                 ...FONTS.body3
-                            }}>US +1</Text>
+                            }}>{selectedArea?.callingCode}</Text>
                         </View>
                     </TouchableOpacity>
 
