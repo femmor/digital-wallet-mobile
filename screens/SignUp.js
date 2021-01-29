@@ -18,7 +18,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 import {icons, images, COLORS, SIZES, FONTS} from "../constants"
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
 
     // States
     const [showPassword, setShowPassword] = useState(false)
@@ -288,7 +288,7 @@ const SignUp = () => {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
-                onPress={() => console.log('Navigate to Home')}
+                onPress={() => navigation.navigate('Home')}
             >
                 <Text
                     style={{
