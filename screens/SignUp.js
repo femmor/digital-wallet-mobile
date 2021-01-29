@@ -232,7 +232,7 @@ const SignUp = () => {
                     onPress={() => setShowPassword(!showPassword)}
                 >
                     <Image
-                        source={icons.eye}
+                        source={showPassword ? icons.disable_eye : icons.eye}
                         style={{
                             height: 20,
                             width: 20,
