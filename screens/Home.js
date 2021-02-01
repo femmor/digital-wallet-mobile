@@ -139,8 +139,8 @@ const Home = () => {
                     <View
                         style={{
                             position: 'absolute',
-                            top: 5,
-                            right: -5,
+                            top: 7,
+                            right: 7,
                             height: 10,
                             width: 10,
                             backgroundColor: COLORS.red,
@@ -154,6 +154,100 @@ const Home = () => {
         </View>
     )
 
+    // renderBanner
+    const renderBanner = () => (
+        <View
+            style={{
+                height: 120,
+                borderRadius: 20,
+                // backgroundColor: COLORS.primary
+            }}
+        >
+            <Image
+                source={images.banner}
+                resizeMode='cover'
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 20,
+                }}
+            />
+        </View>
+    )
+
+    // renderFeatures
+    const renderFeatures = () => {
+
+        const Header = () => {
+            return (
+                <View
+                    style={{
+                        marginBottom: SIZES.padding * 2
+                    }}
+                >
+                    <Text style={{ ...FONTS.h3 }}>Features</Text>
+                </View>
+            )
+        }
+
+        // Icon Items
+        const renderItem = ({ item }) => (
+            <TouchableOpacity
+                style={{
+                    marginBottom: SIZES.padding * 2,
+                    width: 60,
+                    alignItems: 'center'
+                }}
+                onPress={() => console.log(item.description)}
+            >
+                <View
+                    style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: 5,
+                        borderRadius: 20,
+                        backgroundColor: item.backgroundColor,
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Image
+                        source={item.icon}
+                        resizeMode='contain'
+                        style={{
+                            width: 20,
+                            height: 20
+                        }}
+                    />
+                </View>
+                <Text
+                    style={{
+                            textAlign: 'center',
+                            flexWrap: 'wrap',
+                            ...FONTS.body4
+                            
+                        }}
+                    >
+                        {item.description}
+                </Text>
+            </TouchableOpacity>
+        )
+
+        return (
+            <FlatList
+                ListHeaderComponent={Header}
+                data={features}
+                numColumns={4}
+                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                keyExtractor={item => `${item.id}`}
+                renderItem={renderItem}
+                style={{
+                    marginTop: SIZES.padding * 2
+                }}
+            />
+        )
+    }
+
     // renderPromos
     const renderPromos = () => {
 
@@ -161,8 +255,35 @@ const Home = () => {
         const HeaderComponent = () => (
             <View>
                 {renderHeader()}
+                {renderBanner()}
+                {renderFeatures()}
+                {renderPromoHeader()}
             </View>
         )
+
+        // renderPromoHeader
+        const renderPromoHeader = () => {
+            return (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        marginBottom: SIZES.padding
+                    }}
+                >
+                    <View
+                        style={{
+                            flex: 1
+                        }}
+                    >
+                        <Text style={{ ...FONTS.h3 }}>Special Promos</Text>
+                    </View>
+                    <TouchableOpacity
+                    onPress={() => console.log('View all')}>
+                        <Text style={{ color: COLORS.gray, ...FONTS.body4 }}>View all</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
 
 
         // renderItem
@@ -219,13 +340,20 @@ const Home = () => {
                 keyExtractor={item => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
+                ListFooterComponent={
+                    <View style={{
+                        marginBottom: 80
+                    }}>
+
+                    </View>
+                }
             />
         )
     }
 
     return (
         <SafeAreaView
-            style={{flex: 1, backgroundColor: COLORS.lightGreen}}
+            style={{flex: 1, backgroundColor: COLORS.lightGray}}
         >
             {renderPromos()}
         </SafeAreaView>
