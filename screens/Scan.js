@@ -75,6 +75,29 @@ const Scan = ({ navigation }) => {
         )
     }
 
+    // renderScanFocus
+    const renderScanFocus = () => {
+        return (
+            <View 
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Image
+                    source={images.focus}
+                    resizeMode='stretch'
+                    style={{
+                        marginTop: "-55%",
+                        width: 200,
+                        height: 300
+                    }}
+                />
+            </View>
+        )
+    }
+
     // renderPaymentMethods
     const renderPaymentMethods = () => {
         return(
@@ -167,6 +190,12 @@ const Scan = ({ navigation }) => {
         )
     }
 
+    // onBarCodeRead
+    const onBarCodeRead = result => {
+        console.log(result.data)
+    }
+
+
     return (
         <View
             style={{
@@ -184,6 +213,7 @@ const Scan = ({ navigation }) => {
                 captureAudio={false}
                 type={RNCamera.Constants.Type.back}
                 flashMode={RNCamera.Constants.FlashMode.off}
+                onBarCodeRead={onBarCodeRead}
                 androidCameraPermissionOptions={{
                     title: 'Permission to use camera',
                     message: 'Camera is required for barcode scanning',
@@ -192,6 +222,7 @@ const Scan = ({ navigation }) => {
                 }}
             >
                 {renderHeader()}
+                {renderScanFocus()}
                 {renderPaymentMethods()}
             </RNCamera>
         </View>
